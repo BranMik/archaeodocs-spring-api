@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @AllArgsConstructor
-@CrossOrigin(origins = "https://www.brankomikusic.com")
 @RestController
 @RequestMapping("/api/projects")
 public class ProjectController {

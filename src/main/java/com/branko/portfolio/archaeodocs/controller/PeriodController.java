@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "https://www.brankomikusic.com")
 @RestController
 @RequestMapping("/api/periods")
 @AllArgsConstructor
