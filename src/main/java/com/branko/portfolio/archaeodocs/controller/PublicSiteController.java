@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/sites")
+@RequestMapping("/api/public/sites")
 @RequiredArgsConstructor
 @Validated
 public class PublicSiteController {
