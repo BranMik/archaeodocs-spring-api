@@ -16,28 +16,24 @@ import org.springframework.web.server.ResponseStatusException;
 public class AuthController {
 
     private final JwtService jwt;
-    private final String adminUsername;
     private final String adminPassword;
 
     public AuthController(
             JwtService jwt,
-            @Value("${app.admin.username}") String adminUsername,
             @Value("${app.admin.password}") String adminPassword
     ) {
         this.jwt = jwt;
-        this.adminUsername = adminUsername;
         this.adminPassword = adminPassword;
     }
 
     @PostMapping("/login")
     public TokenResponse login(@RequestBody LoginRequest req) {
 
-        // konstantno vrijeme usporedbe je bolje, ali i ovako ok za mali projekt
-        if (!adminUsername.equals(req.username()) || !adminPassword.equals(req.password())) {
+        if (!adminPassword.equals(req.password())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Bad credentials");
         }
 
-        String token = jwt.createAdminToken(req.username());
+        String token = jwt.createAdminToken();
         return new TokenResponse(token);
     }
 }

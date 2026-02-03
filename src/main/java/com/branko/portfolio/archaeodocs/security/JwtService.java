@@ -15,6 +15,7 @@ import java.util.List;
 @Service
 public class JwtService {
 
+    public static final String DEFAULT_ADMIN_USER = "admin";
     public static final String ROLES = "roles";
     public static final String ADMIN = "ADMIN";
 
@@ -33,10 +34,10 @@ public class JwtService {
         this.expMinutes = expMinutes;
     }
 
-    public String createAdminToken(String username) {
+    public String createAdminToken() {
         Instant now = Instant.now();
         return Jwts.builder()
-                .subject(username)
+                .subject(DEFAULT_ADMIN_USER)
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(now.plusSeconds(expMinutes * 60)))
                 .claim(ROLES, List.of(ADMIN))
