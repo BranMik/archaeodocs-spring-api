@@ -8,20 +8,20 @@ import com.branko.portfolio.archaeodocs.repository.SiteRepository;
 import com.branko.portfolio.archaeodocs.service.ImageSiteService;
 import com.branko.portfolio.archaeodocs.service.SiteService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/sites")
+@RequestMapping("/api/admin/sites")
 @RequiredArgsConstructor
 @Validated
-public class SiteController {
+public class AdminSiteController {
     private final SiteService siteService;
     private final SiteRepository siteRepo;
     private final SiteMapper siteMapper;
@@ -31,42 +31,11 @@ public class SiteController {
     @Value("${internal.api.key}")
     private String internalKey;
 
-    @GetMapping
-    public List<SiteResponseDTO> all() {
-        return siteService.getAllSites();
-    }
-
     @PostMapping
     public ResponseEntity<SiteResponseDTO> create(@Valid @RequestBody SiteCreateDTO dto) {
         SiteResponseDTO created = siteService.createNewSite(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<SiteResponseDTO> one(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(siteService.getOneSiteById(id));
-    }
-
-    @GetMapping("/geo-data")
-    public ResponseEntity<List<SiteGeoLocationResponseDTO>> allGeoData() {
-        return ResponseEntity.ok(siteService.getAllGeoData());
-    }
-
-    @GetMapping("/{siteId}/periods")
-    public ResponseEntity<List<String>> sitePeriods(@PathVariable("siteId") Long siteId) {
-        return ResponseEntity.ok(siteService.getPeriodsNamesForSite(siteId));
-    }
-
-    @GetMapping("/{siteId}/finds")
-    public ResponseEntity<List<FindResponseDTO>> siteFinds(@PathVariable("siteId") Long siteId) {
-        return ResponseEntity.ok(siteService.getFindsForSite(siteId));
-    }
-
-    @GetMapping("/{siteId}/image-paths")
-    public ResponseEntity<List<String>> siteImagePaths(@PathVariable("siteId") Long siteId) {
-        return ResponseEntity.ok(siteService.getImagePathsForSite(siteId));
-    }
-
 
     @PutMapping("/{siteId}/periods")
     public ResponseEntity<String> updatePeriods(
@@ -93,7 +62,7 @@ public class SiteController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/api/sites/{siteId}/images")
+    @PostMapping("/{siteId}/images")
     public ResponseEntity<?> addImage(
             @RequestHeader("X-Internal-Key") String key,
             @PathVariable Long siteId,

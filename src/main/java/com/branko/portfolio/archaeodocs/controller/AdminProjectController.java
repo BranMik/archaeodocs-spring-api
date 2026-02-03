@@ -18,32 +18,17 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/projects")
-public class ProjectController {
+@RequestMapping("/api/admin/projects")
+public class AdminProjectController {
     private final ProjectRepository projectRepo;
     private final ProjectMapper mapper;
     private final ProjectSiteRepository projectSiteRepo;
     private final ProjectService projectService;
 
-    @GetMapping
-    public List<ProjectResponseDTO> all() {
-        return projectService.getAllProjects();
-    }
-
     @PostMapping
     public ResponseEntity<ProjectResponseDTO> create(@Valid @RequestBody ProjectCreateDTO dto) {
         ProjectResponseDTO created = projectService.createNewProject(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
-    }
-
-    @GetMapping("/sites-flat")
-    public List<ProjectSiteRowDTO> sitesFlat() {
-        return projectSiteRepo.findProjectSitesFlat();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ProjectResponseDTO> one(@PathVariable Long id) {
-        return ResponseEntity.ok(projectService.getOneProjectById(id));
     }
 
     @PutMapping("/{id}")

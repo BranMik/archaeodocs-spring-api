@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/periods")
+@RequestMapping("/api/public/periods")
 @AllArgsConstructor
-public class PeriodController {
+public class PublicPeriodController {
 
     private final PeriodService periodService;
 

@@ -1,8 +1,6 @@
 package com.branko.portfolio.archaeodocs.controller;
 
 import com.branko.portfolio.archaeodocs.dto.MaterialResponseDTO;
-import com.branko.portfolio.archaeodocs.mapper.MaterialMapper;
-import com.branko.portfolio.archaeodocs.repository.MaterialRepository;
 import com.branko.portfolio.archaeodocs.service.MaterialService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +10,9 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/materials")
-public class MaterialController {
+@RequestMapping("/api/public/materials")
+public class PublicMaterialController {
 
-    private final MaterialRepository repo;
-    private final MaterialMapper mapper;
     private final MaterialService materialService;
 
     @GetMapping

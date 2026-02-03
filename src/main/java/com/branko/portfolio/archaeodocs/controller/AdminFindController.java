@@ -14,28 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/finds")
+@RequestMapping("/api/admin/finds")
 @AllArgsConstructor
-public class FindController {
+public class AdminFindController {
 
     private final FindRepository repo;
     private final FindService findService;
-
-    @GetMapping
-    public List<FindResponseDTO> all() {
-        return findService.getAllFinds();
-    }
 
     @PostMapping
     public ResponseEntity<FindResponseDTO> create(@Valid @RequestBody FindCreateDTO dto) {
         FindResponseDTO created = findService.createNewFind(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<FindCompleteResponseDTO> one(@PathVariable Long id) {
-        FindCompleteResponseDTO found = findService.getFindById(id);
-        return ResponseEntity.status(HttpStatus.FOUND).body(found);
     }
 
     @DeleteMapping("/{id}")
