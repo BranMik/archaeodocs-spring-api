@@ -57,7 +57,10 @@ public class JwtService {
     public boolean hasAdminRole(String token) {
         Claims c = parse(token).getPayload();
         Object roles = c.get(ROLES);
-        return roles instanceof List<?> list && list.contains(ADMIN);
+        if (roles instanceof List<?> list) {
+            return list.stream().anyMatch(r -> ADMIN.equals(String.valueOf(r)));
+        }
+        return false;
     }
 
     public String extractUsername(String token) {
