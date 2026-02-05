@@ -1,10 +1,6 @@
 package com.branko.portfolio.archaeodocs.controller;
 
 import com.branko.portfolio.archaeodocs.dto.*;
-import com.branko.portfolio.archaeodocs.mapper.SiteGeoLocationMapper;
-import com.branko.portfolio.archaeodocs.mapper.SiteMapper;
-import com.branko.portfolio.archaeodocs.repository.SiteGeoLocationRepository;
-import com.branko.portfolio.archaeodocs.repository.SiteRepository;
 import com.branko.portfolio.archaeodocs.service.ImageSiteService;
 import com.branko.portfolio.archaeodocs.service.SiteService;
 import jakarta.validation.Valid;
@@ -24,10 +20,6 @@ import java.util.List;
 @Validated
 public class AdminSiteController {
     private final SiteService siteService;
-    private final SiteRepository siteRepo;
-    private final SiteMapper siteMapper;
-    private final SiteGeoLocationRepository siteGeoLocationRepo;
-    private final SiteGeoLocationMapper siteGeoLocationMapper;
     private final ImageSiteService imageSiteService;
     @Value("${internal.api.key}")
     private String internalKey;
