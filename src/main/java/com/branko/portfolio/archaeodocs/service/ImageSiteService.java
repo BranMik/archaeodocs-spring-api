@@ -69,23 +69,25 @@ public class ImageSiteService {
     }
 
     @Transactional
-    public void deleteImageByFilename(String path) {
-        ImageSite img = imageSiteRepo.findByFilename(path)
+    public void deleteImageByFilename(String filename) {
+        log.info("Inside service deleteImageByFilename path = "+filename);
+        ImageSite img = imageSiteRepo.findByFilename(filename)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
+        log.info("after ImageSite instanciation");
         imageSiteRepo.delete(img);
-
+        log.info("after delete it");
         try {
             webClient.post()
                     .uri(phpDeleteUrl)
                     .header("X-DELETE-TOKEN", deleteToken)
-                    .bodyValue(new DeleteFileRequest(path))
+                    .bodyValue(new DeleteFileRequest(filename))
                     .retrieve()
                     .toBodilessEntity()
                     .block();
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.MULTI_STATUS);
         }
+        log.info("after try/catch with webClient");
     }
 
     public record DeleteFileRequest(String key) {}
