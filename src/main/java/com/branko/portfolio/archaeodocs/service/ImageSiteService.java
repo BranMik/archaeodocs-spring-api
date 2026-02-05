@@ -12,12 +12,16 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import reactor.core.publisher.Mono;
+
 import java.util.List;
 
 @Service
@@ -78,17 +82,30 @@ public class ImageSiteService {
         log.info("after delete it");
         log.info("phpDeleteUrl = "+phpDeleteUrl);
         try {
-            webClient.post()
+            String body = webClient.post()
                     .uri(phpDeleteUrl)
                     .header("X-DELETE-TOKEN", deleteToken)
+                    .contentType(MediaType.APPLICATION_JSON)
                     .bodyValue(new DeleteFileRequest(filename))
                     .retrieve()
-                    .toBodilessEntity()
+                    .onStatus(HttpStatusCode::isError, resp ->
+                            resp.bodyToMono(String.class)
+                                    .defaultIfEmpty("")
+                                    .flatMap(b -> {
+                                        log.error("PHP responded error. status={}, body={}", resp.statusCode(), b);
+                                        return Mono.error(new RuntimeException("PHP error " + resp.statusCode() + ": " + b));
+                                    })
+                    )
+                    .bodyToMono(String.class)
+                    .defaultIfEmpty("")
                     .block();
+
+            log.info("PHP delete OK. responseBody={}", body);
+
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.MULTI_STATUS);
+            log.error("PHP delete call failed. url={}, filename={}", phpDeleteUrl, filename, e);
+            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "PHP delete failed", e);
         }
-        log.info("after try/catch with webClient");
     }
 
     public record DeleteFileRequest(String key) {}
