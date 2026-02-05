@@ -70,12 +70,13 @@ public class ImageSiteService {
 
     @Transactional
     public void deleteImageByFilename(String filename) {
-        log.info("Inside service deleteImageByFilename path = "+filename);
+        log.info("Inside service deleteImageByFilename filename = "+filename);
         ImageSite img = imageSiteRepo.findByFilename(filename)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         log.info("after ImageSite instanciation");
         imageSiteRepo.delete(img);
         log.info("after delete it");
+        log.info("phpDeleteUrl = "+phpDeleteUrl);
         try {
             webClient.post()
                     .uri(phpDeleteUrl)
