@@ -2,7 +2,6 @@ package com.branko.portfolio.archaeodocs.controller;
 
 import com.branko.portfolio.archaeodocs.dto.ProjectCreateDTO;
 import com.branko.portfolio.archaeodocs.dto.ProjectResponseDTO;
-import com.branko.portfolio.archaeodocs.dto.ProjectSiteRowDTO;
 import com.branko.portfolio.archaeodocs.dto.ProjectUpdateDTO;
 import com.branko.portfolio.archaeodocs.mapper.ProjectMapper;
 import com.branko.portfolio.archaeodocs.repository.ProjectRepository;
@@ -14,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @AllArgsConstructor
 @RestController
