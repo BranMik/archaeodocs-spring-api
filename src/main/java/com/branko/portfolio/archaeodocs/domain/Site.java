@@ -26,7 +26,7 @@ public class Site {
     @Column
     private String description;
 
-    @OneToOne(mappedBy = "site", fetch = FetchType.LAZY,
+    @OneToOne(mappedBy = "site",
             cascade = CascadeType.ALL, orphanRemoval = true)
     private SiteGeoLocation geoLocation;
 

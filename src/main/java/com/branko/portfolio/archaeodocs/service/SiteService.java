@@ -2,6 +2,7 @@ package com.branko.portfolio.archaeodocs.service;
 
 import com.branko.portfolio.archaeodocs.domain.Period;
 import com.branko.portfolio.archaeodocs.domain.Site;
+import com.branko.portfolio.archaeodocs.domain.SiteGeoLocation;
 import com.branko.portfolio.archaeodocs.dto.*;
 import com.branko.portfolio.archaeodocs.mapper.SiteGeoLocationMapper;
 import com.branko.portfolio.archaeodocs.mapper.SiteMapper;
@@ -27,6 +28,7 @@ public class SiteService {
     private final FindService findService;
     private final SiteMapper siteMapper;
     private final SiteGeoLocationMapper siteGeoLocationMapper;
+    private final ProjectSiteRepository projectSiteRepository;
 
     @Transactional(readOnly = true)
     public List<String> getPeriodsNamesForSite(Long siteId) {
@@ -47,10 +49,18 @@ public class SiteService {
     public SiteResponseDTO createNewSite(SiteCreateDTO dto){
         Site site = new Site();
         site.setName(dto.getName());
-        site.setComment(dto.getComment());
         site.setDescription(dto.getDescription());
 
+        SiteGeoLocation geo = new SiteGeoLocation();
+        geo.setLat(dto.getLat());
+        geo.setLng(dto.getLng());
+
+        geo.setSite(site);
+        site.setGeoLocation(geo);
+
         Site saved = siteRepo.save(site);
+
+        projectSiteRepository.insertProjectSite(dto.getProjId(), saved.getId());
 
         return siteMapper.toResponseDTO(saved);
     }

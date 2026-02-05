@@ -10,9 +10,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SiteCreateDTO {
 
-    @NotBlank(message = "Title is required")
+    @NotBlank(message = "Name is required")
     private final String name;
-    private final String comment;
     private final String description;
+    private final float lat;
+    private final float lng;
+    private final Long projId;
 
 }

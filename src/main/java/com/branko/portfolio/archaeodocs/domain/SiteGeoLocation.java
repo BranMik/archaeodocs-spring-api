@@ -16,13 +16,13 @@ public class SiteGeoLocation {
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
-    @JoinColumn(name = "site_id_fkpk", insertable = false, updatable = false)
+    @JoinColumn(name = "site_id_fkpk")
     private Site site;
 
-    @Column(nullable = false)
-    private float lat;
+    @Column
+    private Float lat;
 
-    @Column(nullable = false)
-    private float lng;
+    @Column
+    private Float lng;
 
 }

@@ -35,4 +35,12 @@ public class ProjectSiteRepository {
                 rs.getString("site_name")
         ));
     }
+
+    public void insertProjectSite(Long projectId, Long siteId) {
+        String sql = """
+      INSERT INTO projects_sites_joint (project_id_fk, site_id_fk)
+      VALUES (?, ?)
+    """;
+        jdbc.update(sql, projectId, siteId);
+    }
 }
