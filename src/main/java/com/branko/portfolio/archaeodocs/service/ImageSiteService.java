@@ -1,6 +1,5 @@
 package com.branko.portfolio.archaeodocs.service;
 
-import com.branko.portfolio.archaeodocs.controller.AdminSiteController;
 import com.branko.portfolio.archaeodocs.domain.ImageSite;
 import com.branko.portfolio.archaeodocs.domain.Site;
 import com.branko.portfolio.archaeodocs.dto.ImageSiteCreateDTO;
@@ -18,8 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
 import java.util.List;

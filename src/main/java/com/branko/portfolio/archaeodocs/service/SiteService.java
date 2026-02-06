@@ -9,7 +9,6 @@ import com.branko.portfolio.archaeodocs.mapper.SiteMapper;
 import com.branko.portfolio.archaeodocs.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
