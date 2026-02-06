@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.util.List;
 
 @RestController
@@ -23,9 +21,6 @@ public class AdminSiteController {
     private final ImageSiteService imageSiteService;
     @Value("${internal.api.key}")
     private String internalKey;
-
-    private static final Logger log =
-            LoggerFactory.getLogger(AdminSiteController.class);
 
     @PostMapping
     public ResponseEntity<SiteResponseDTO> create(@Valid @RequestBody SiteCreateDTO dto) {
@@ -64,13 +59,10 @@ public class AdminSiteController {
             @PathVariable Long siteId,
             @Valid @RequestBody ImageSiteCreateDTO dto
     ) {
-        log.info("in method");
         if (!internalKey.equals(key)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        log.info("before service call");
         imageSiteService.createImageSiteInDB(siteId, dto);
-        log.info("before return");
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

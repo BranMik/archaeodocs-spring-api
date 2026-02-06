@@ -3,9 +3,6 @@ package com.branko.portfolio.archaeodocs.controller;
 import com.branko.portfolio.archaeodocs.dto.ProjectCreateDTO;
 import com.branko.portfolio.archaeodocs.dto.ProjectResponseDTO;
 import com.branko.portfolio.archaeodocs.dto.ProjectUpdateDTO;
-import com.branko.portfolio.archaeodocs.mapper.ProjectMapper;
-import com.branko.portfolio.archaeodocs.repository.ProjectRepository;
-import com.branko.portfolio.archaeodocs.repository.ProjectSiteRepository;
 import com.branko.portfolio.archaeodocs.service.ProjectService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -18,9 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/admin/projects")
 public class AdminProjectController {
-    private final ProjectRepository projectRepo;
-    private final ProjectMapper mapper;
-    private final ProjectSiteRepository projectSiteRepo;
     private final ProjectService projectService;
 
     @PostMapping

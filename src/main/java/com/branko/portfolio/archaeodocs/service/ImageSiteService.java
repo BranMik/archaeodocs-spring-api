@@ -39,22 +39,15 @@ public class ImageSiteService {
     @Value("${files.delete.token}")
     private String deleteToken;
 
-    private static final Logger log =
-            LoggerFactory.getLogger(ImageSiteService.class);
-
     @Transactional
     public void createImageSiteInDB(Long siteId, ImageSiteCreateDTO dto){
         ImageSite imageSite = new ImageSite();
         imageSite.setFilename(dto.getFilename());
 
-        log.info("in service method");
         Site site = siteRepository.findById(siteId).orElseThrow(() -> new IllegalArgumentException("Site not found: " + siteId));
         site.getImages().add(imageSite);
-        log.info("after add before setSite");
         imageSite.setSite(site);
-        log.info("after setSite");
         imageSiteRepository.save(imageSite);
-        log.info("after save");
     }
 
     @Transactional(readOnly = true)
@@ -74,13 +67,9 @@ public class ImageSiteService {
 
     @Transactional
     public void deleteImageByFilename(String filename) {
-        log.info("Inside service deleteImageByFilename filename = "+filename);
         ImageSite img = imageSiteRepo.findByFilename(filename)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        log.info("after ImageSite instanciation");
         imageSiteRepo.delete(img);
-        log.info("after delete it");
-        log.info("phpDeleteUrl = "+phpDeleteUrl);
         try {
             String body = webClient.post()
                     .uri(phpDeleteUrl)
@@ -92,7 +81,6 @@ public class ImageSiteService {
                             resp.bodyToMono(String.class)
                                     .defaultIfEmpty("")
                                     .flatMap(b -> {
-                                        log.error("PHP responded error. status={}, body={}", resp.statusCode(), b);
                                         return Mono.error(new RuntimeException("PHP error " + resp.statusCode() + ": " + b));
                                     })
                     )
@@ -100,10 +88,7 @@ public class ImageSiteService {
                     .defaultIfEmpty("")
                     .block();
 
-            log.info("PHP delete OK. responseBody={}", body);
-
         } catch (Exception e) {
-            log.error("PHP delete call failed. url={}, filename={}", phpDeleteUrl, filename, e);
             throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "PHP delete failed", e);
         }
     }
