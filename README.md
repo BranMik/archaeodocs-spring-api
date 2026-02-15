@@ -18,9 +18,9 @@ https://www.brankomikusic.com/Archaeodocs/about.php
 
 ## Public API Endpoints
 Feel free to test these endpoints (GET requests):
-- 🔍 Projects: /api/public/projects &nbsp;&nbsp;https://archaeodocs-spring-api-production.up.railway.app/api/public/projects
-- 🏛️ Sites: /api/public/sites &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://archaeodocs-spring-api-production.up.railway.app/api/public/sites
-- 🏺 Finds: /api/public/finds &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://archaeodocs-spring-api-production.up.railway.app/api/public/finds
+- 🔍 Projects: /api/public/projects https://archaeodocs-spring-api-production.up.railway.app/api/public/projects
+- 🏛️ Sites: /api/public/sites &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://archaeodocs-spring-api-production.up.railway.app/api/public/sites
+- 🏺 Finds: /api/public/finds &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://archaeodocs-spring-api-production.up.railway.app/api/public/finds
 - (Authentication is required for other endpoints.)
 
 ## Example Request
