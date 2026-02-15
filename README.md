@@ -40,3 +40,7 @@ json
   }
 ]
 `
+## Contact
+👤 Branko Mikušić
+📧 bmikusic@gmail.com
+🔗 https://www.linkedin.com/in/branko-mikusic/
